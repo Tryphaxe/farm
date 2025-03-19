@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Reproducteur {
+  id             String         @id @default(cuid())
+  nom            String      @db.VarChar(255)
+  race           String      @db.VarChar(255)
+  sexe           String      @db.VarChar(255)
+  date_naissance DateTime    @db.Date
+  id_mere        Int?
+  id_pere        Int?
+  date_ajout     DateTime    @default(now())
+}
+
+enum StatutLapin {
+  VIVANT
+  VENDU
+  MORT
+}
+
+model Lapin {
+  id             String      @id @default(cuid())
+  nbre           String   @db.VarChar(255)
+  race           String   @db.VarChar(255)
+  sexe           String   @db.VarChar(255)
+  date_naissance DateTime @db.Date
+  id_mere        Int?
+  id_pere        Int?
+  statut         String   @db.VarChar(255)
+  createdAt      DateTime @default(now())
+
+  reproductions  Repro[]
+
+  cage Cage @relation(fields: [cageId], references: [id])
+  cageId String
+}
+
+model Repro {
+  id             String      @id @default(cuid())
+  id_male        Int?
+  id_femelle     Int?
+  diagnostic String?
+  startnid DateTime @db.Date
+  date_parturition DateTime @db.Date
+  lap_nes       String   @db.VarChar(255)
+  designation String?
+  lap_mort      String   @db.VarChar(255)
+  createdAt      DateTime @default(now())
+
+  lapins         Lapin[]
+}
+
+model Cage {
+  id  String    @id @default(cuid())
+  nom String @db.VarChar(255)
+
+  lapins Lapin[]
+}
+
+model Aliment {
+  id  String    @id @default(cuid())
+  nom String @db.VarChar(255)
+}
+
+model Vente {
+  id     String     @id @default(cuid())
+  nomcli String?
+  numcli String?
+  price  String?
+}

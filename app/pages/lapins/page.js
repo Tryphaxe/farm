@@ -2,7 +2,7 @@
 
 import { TableHome } from "@/components/TableHome";
 import { Label, Select } from "flowbite-react";
-import { CircleFadingPlus, ListFilter, Rabbit, Search } from "lucide-react";
+import { CircleFadingPlus, Dog, ListFilter, Rabbit, Search } from "lucide-react";
 
 export default function page() {
     return (
@@ -11,8 +11,8 @@ export default function page() {
             <div className="flex items-center justify-between px-3 py-2 w-full rounded-md bg-white">
                 {/* Title */}
                 <span className="flex items-center gap-x-3">
-                    <Rabbit color="orange" size={25} />
-                    Liste des lapins adultes
+                    <Dog color="orange" size={25} />
+                    Liste des lapereaux
                 </span>
                 {/* Search input */}
                 <div className="flex items-center gap-x-1 py-1 px-3 overflow-hidden">

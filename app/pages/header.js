@@ -9,12 +9,12 @@ import Link from 'next/link';
 
 const navigation = [
   { name: "Dashboard", href: "/pages/home", icon: Home },
-  { name: "Lapins", href: "/pages/lapins", icon: Rabbit },
-  { name: "Lapereaux", href: "/pages/lapereaux", icon: Dog },
+  { name: "Reproducteurs", href: "/pages/reproducteurs", icon: Rabbit },
+  { name: "Lapins", href: "/pages/lapins", icon: Dog },
   { name: "Reproduction", href: "/pages/reproduction", icon: Waypoints },
+  { name: "Ventes", href: "/pages/ventes", icon: HandCoins },
   { name: "Enclos", href: "/pages/cages", icon: Columns4 },
   { name: "Aliments", href: "/pages/aliments", icon: Cookie },
-  { name: "Ventes", href: "/pages/ventes", icon: HandCoins },
   { name: "Paramètres", href: "/pages/settings", icon: Cog },
 ];
 
