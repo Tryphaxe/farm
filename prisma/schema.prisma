@@ -14,13 +14,11 @@ datasource db {
 }
 
 model Reproducteur {
-  id             String         @id @default(cuid())
-  nom            String      @db.VarChar(255)
-  race           String      @db.VarChar(255)
-  sexe           String      @db.VarChar(255)
+  id             String         @id @default(cuid()) @db.VarChar(10)
+  nom            String      @db.VarChar(5)
+  race           String      @db.VarChar(50)
+  sexe           String      @db.VarChar(10)
   date_naissance DateTime    @db.Date
-  id_mere        Int?
-  id_pere        Int?
   date_ajout     DateTime    @default(now())
 }
 
@@ -31,14 +29,14 @@ enum StatutLapin {
 }
 
 model Lapin {
-  id             String      @id @default(cuid())
-  nbre           String   @db.VarChar(255)
-  race           String   @db.VarChar(255)
-  sexe           String   @db.VarChar(255)
+  id             String      @id @default(cuid()) @db.VarChar(10)
+  nbre           String   @db.VarChar(15)
+  race           String   @db.VarChar(15)
+  sexe           String   @db.VarChar(15)
   date_naissance DateTime @db.Date
   id_mere        Int?
   id_pere        Int?
-  statut         String   @db.VarChar(255)
+  statut         String   @db.VarChar(15)
   createdAt      DateTime @default(now())
 
   reproductions  Repro[]
@@ -48,34 +46,34 @@ model Lapin {
 }
 
 model Repro {
-  id             String      @id @default(cuid())
+  id             String      @id @default(cuid()) @db.VarChar(10)
   id_male        Int?
   id_femelle     Int?
   diagnostic String?
   startnid DateTime @db.Date
   date_parturition DateTime @db.Date
-  lap_nes       String   @db.VarChar(255)
+  lap_nes       String   @db.VarChar(15)
   designation String?
-  lap_mort      String   @db.VarChar(255)
+  lap_mort      String   @db.VarChar(15)
   createdAt      DateTime @default(now())
 
   lapins         Lapin[]
 }
 
 model Cage {
-  id  String    @id @default(cuid())
-  nom String @db.VarChar(255)
+  id  String    @id @default(cuid()) @db.VarChar(10)
+  nom String @db.VarChar(15)
 
   lapins Lapin[]
 }
 
 model Aliment {
-  id  String    @id @default(cuid())
-  nom String @db.VarChar(255)
+  id  String    @id @default(cuid()) @db.VarChar(10)
+  nom String @db.VarChar(15)
 }
 
 model Vente {
-  id     String     @id @default(cuid())
+  id     String     @id @default(cuid()) @db.VarChar(10)
   nomcli String?
   numcli String?
   price  String?

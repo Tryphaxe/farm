@@ -19,7 +19,7 @@ export default function ClientLayout({children}) {
     return (
         <>
             <NextTopLoader
-                color="#ff6600"
+                color="#562731"
                 initialPosition={0.08}
                 crawlSpeed={100}
                 height={3}
@@ -27,7 +27,7 @@ export default function ClientLayout({children}) {
                 showSpinner={true}
                 easing="ease-in-out"
                 speed={100}
-                shadow="0 0 10px #ff9677,0 0 5px #ff9677"
+                shadow="0 0 10px #FC515B,0 0 5px #FC515B"
                 zIndex={1600}
                 showAtBottom={false}
             />

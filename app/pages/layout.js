@@ -2,11 +2,9 @@ import Header from "./header";
 
 export default function AppLayout({ children }) {
   return (
-    <div>
-      <div className="">
-        <Header />
-      </div>
-      <div className="py-5 px-16 bg-gray-50 h-full">
+    <div className="w-full max-h-screen overflow-hidden overflow-y-scroll">
+      <Header />
+      <div className="py-5 px-16 bg-white">
         {children}
       </div>
     </div>

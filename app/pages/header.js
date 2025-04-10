@@ -15,7 +15,6 @@ const navigation = [
   { name: "Ventes", href: "/pages/ventes", icon: HandCoins },
   { name: "Enclos", href: "/pages/cages", icon: Columns4 },
   { name: "Aliments", href: "/pages/aliments", icon: Cookie },
-  { name: "Paramètres", href: "/pages/settings", icon: Cog },
 ];
 
 function classNames(...classes) {
@@ -26,7 +25,7 @@ export default function Example() {
   const pathname = usePathname();
 
   return (
-    <Disclosure as="nav" className="bg-white">
+    <Disclosure as="nav" className="bg-white sticky top-0 z-50">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
         <div className="relative flex h-16 items-center justify-between">
           <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
@@ -37,8 +36,8 @@ export default function Example() {
           </div>
           <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
             <div className="flex shrink-0 items-center">
-              <Image src="/favicon.png" alt="Logo admin ferme" width={25} height={25} />
-              <span className="ml-3 text-orange-500">AdminFerme</span>
+              <Image src="/fav.png" alt="Logo admin ferme" width={25} height={25} />
+              <span className="ml-3 text-[#562731]">DaRabbit</span>
             </div>
             <div className="hidden sm:ml-6 sm:block">
               <div className="flex space-x-8">
@@ -51,7 +50,7 @@ export default function Example() {
                       aria-current={isActive ? "page" : undefined}
                       className={classNames(
                         isActive
-                          ? "border-b-2 border-orange-500 text-orange-800"
+                          ? "border-b-2 border-[#562731] text-orange-800"
                           : "text-gray-500 hover:text-orange-700",
                         "flex items-center gap-2 py-2 text-sm font-medium"
                       )}
@@ -65,7 +64,7 @@ export default function Example() {
             </div>
           </div>
           <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-            <button className="relative rounded-full bg-gray-50 p-1 text-gray-700 hover:text-orange-500 focus:ring-2 focus:ring-orange-500 focus:ring-offset-2 focus:outline-none">
+            <button className="relative rounded-full bg-gray-50 p-1 text-gray-700 hover:text-[#562731] focus:ring-2 focus:ring-[#562731] focus:ring-offset-2 focus:outline-none">
               <BellIcon aria-hidden="true" className="size-6" />
             </button>
             <Menu as="div" className="relative ml-3">

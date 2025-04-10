@@ -27,7 +27,7 @@ export default function Home() {
         <span className='text-gray-800 mt-1 font-bold text-4xl'>Ferme admin</span>
         <div className="grid gap-3">
           <div className="flex items-center justify-center">
-          <i className="fa-solid fa-spinner fa-spin-pulse text-2xl text-[#ff9011]"></i>
+          <i className="fa-solid fa-spinner fa-spin-pulse text-2xl text-[#fc515b]"></i>
           </div>
         </div>
       </div>
