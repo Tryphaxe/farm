@@ -45,7 +45,8 @@ export default function Create({ open, close, onSave, reproducteur }) {
         try {
             const url = reproducteur ? `/api/reproducteurs/${reproducteur.id}` : "/api/reproducteurs";
             const method = reproducteur ? "PUT" : "POST";
-            console.log(reproducteur)
+            console.log(reproducteur);
+            console.log("Données envoyées :", formData);
 
             const response = await fetch(url, {
                 method,
@@ -54,7 +55,7 @@ export default function Create({ open, close, onSave, reproducteur }) {
             });
 
             if (response.ok) {
-                toast.success(reproducteur ? "Reproducteur modifié avec succès !" : "Reprodructeur enregistré avec succès !", {
+                toast.success(reproducteur ? "Reproducteur modifié avec succès !" : "Reproducteur enregistré avec succès !", {
                     style: {
                         background: "#f1f1f1",
                         color: "green",
@@ -64,7 +65,9 @@ export default function Create({ open, close, onSave, reproducteur }) {
                         borderRadius: "10px"
                     },
                 });
-                console.log("----------------SUCCESS-------------")
+                onSave();
+                close();
+                console.log("----------------SUCCESS-------------");
             } else {
                 toast.error(reproducteur ? "Modification échouée !" : "Enregistrement échoué !", {
                     style: {
@@ -78,11 +81,8 @@ export default function Create({ open, close, onSave, reproducteur }) {
                 });
                 console.log("----------------ERROR-------------")
             }
-
-            onSave();
-            close();
         } catch (error) {
-            console.error("Erreur:", error);
+            console.log('Erreur');
         } finally {
             setIsLoading(false);
         }
@@ -162,7 +162,7 @@ export default function Create({ open, close, onSave, reproducteur }) {
                         />
                     </div>
 
-                    <Button type="submit" className="w-full mt-4">
+                    <Button type="submit" className="w-full mt-4" disabled={isLoading}>
                         {isLoading && <Spinner size="sm" className="mr-2" />}
                         {reproducteur ? "Modifier" : "Ajouter"}
                     </Button>

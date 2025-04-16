@@ -1,8 +1,8 @@
 -- CreateTable
 CREATE TABLE `Reproducteur` (
-    `id` VARCHAR(10) NOT NULL,
-    `nom` VARCHAR(35) NOT NULL,
-    `race` VARCHAR(10) NOT NULL,
+    `id` VARCHAR(25) NOT NULL,
+    `nom` VARCHAR(5) NOT NULL,
+    `race` VARCHAR(50) NOT NULL,
     `sexe` VARCHAR(10) NOT NULL,
     `date_naissance` DATE NOT NULL,
     `date_ajout` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -12,15 +12,15 @@ CREATE TABLE `Reproducteur` (
 
 -- CreateTable
 CREATE TABLE `Lapin` (
-    `id` VARCHAR(10) NOT NULL,
+    `id` VARCHAR(25) NOT NULL,
     `nbre` VARCHAR(15) NOT NULL,
     `race` VARCHAR(15) NOT NULL,
     `sexe` VARCHAR(15) NOT NULL,
     `date_naissance` DATE NOT NULL,
-    `id_mere` INTEGER NULL,
-    `id_pere` INTEGER NULL,
     `statut` VARCHAR(15) NOT NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `id_mere` VARCHAR(25) NULL,
+    `id_pere` VARCHAR(25) NULL,
     `cageId` VARCHAR(191) NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -28,9 +28,9 @@ CREATE TABLE `Lapin` (
 
 -- CreateTable
 CREATE TABLE `Repro` (
-    `id` VARCHAR(10) NOT NULL,
-    `id_male` INTEGER NULL,
-    `id_femelle` INTEGER NULL,
+    `id` VARCHAR(25) NOT NULL,
+    `id_male` VARCHAR(25) NULL,
+    `id_femelle` VARCHAR(25) NULL,
     `diagnostic` VARCHAR(191) NULL,
     `startnid` DATE NOT NULL,
     `date_parturition` DATE NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE `Repro` (
 
 -- CreateTable
 CREATE TABLE `Cage` (
-    `id` VARCHAR(10) NOT NULL,
+    `id` VARCHAR(25) NOT NULL,
     `nom` VARCHAR(15) NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -52,7 +52,7 @@ CREATE TABLE `Cage` (
 
 -- CreateTable
 CREATE TABLE `Aliment` (
-    `id` VARCHAR(10) NOT NULL,
+    `id` VARCHAR(25) NOT NULL,
     `nom` VARCHAR(15) NOT NULL,
 
     PRIMARY KEY (`id`)
@@ -60,7 +60,7 @@ CREATE TABLE `Aliment` (
 
 -- CreateTable
 CREATE TABLE `Vente` (
-    `id` VARCHAR(10) NOT NULL,
+    `id` VARCHAR(25) NOT NULL,
     `nomcli` VARCHAR(191) NULL,
     `numcli` VARCHAR(191) NULL,
     `price` VARCHAR(191) NULL,
@@ -70,8 +70,8 @@ CREATE TABLE `Vente` (
 
 -- CreateTable
 CREATE TABLE `_LapinToRepro` (
-    `A` VARCHAR(10) NOT NULL,
-    `B` VARCHAR(10) NOT NULL,
+    `A` VARCHAR(25) NOT NULL,
+    `B` VARCHAR(25) NOT NULL,
 
     UNIQUE INDEX `_LapinToRepro_AB_unique`(`A`, `B`),
     INDEX `_LapinToRepro_B_index`(`B`)

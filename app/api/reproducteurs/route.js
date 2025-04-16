@@ -11,8 +11,8 @@ export async function GET(request) {
         const pageSize = 6
 
         const filters = {}
-        if (search) {filters.search = search}
-        if (sexe) {filters.sexe = sexe}
+        if (search) { filters.search = search }
+        if (sexe) { filters.sexe = sexe }
 
         const [total, reproducteurs] = await Promise.all([
             prisma.reproducteur.count({
@@ -37,7 +37,8 @@ export async function GET(request) {
 
 // ADD REPRODUCTEUR
 export async function POST(request) {
-    const data = await request.json()
+    const data = await request.json();
+    console.log("Data reçu côté serveur :", data);
 
     try {
         const reproducteur = await prisma.reproducteur.create({
@@ -49,10 +50,12 @@ export async function POST(request) {
             }
         })
 
-        return NextResponse.json( reproducteur, { status: 201 }
+        return NextResponse.json(reproducteur, { status: 201 }
         )
     } catch (error) {
-        return NextResponse.json({ error: "Add reproducteur failed" }, { status: 500 })
+        console.error("Erreur Prisma :", JSON.stringify(error, null, 2));
+        return NextResponse.json({ error: "Add reproducteur failed", details: error }, { status: 500 });
+
     }
 }
 
@@ -60,7 +63,7 @@ export async function POST(request) {
 export async function PUT(request, { params }) {
     try {
         const { id } = await params
-        const data = await request.json
+        const data = await request.json()
 
         const updateReproducteur = await prisma.reproducteur.update({
             where: { id },

@@ -14,12 +14,15 @@ datasource db {
 }
 
 model Reproducteur {
-  id             String         @id @default(cuid()) @db.VarChar(10)
-  nom            String      @db.VarChar(5)
-  race           String      @db.VarChar(50)
-  sexe           String      @db.VarChar(10)
-  date_naissance DateTime    @db.Date
-  date_ajout     DateTime    @default(now())
+  id             String   @id @default(cuid()) @db.VarChar(25)
+  nom            String   @db.VarChar(5)
+  race           String   @db.VarChar(50)
+  sexe           String   @db.VarChar(10)
+  date_naissance DateTime @db.Date
+  date_ajout     DateTime @default(now())
+
+  // Ces champs ne doivent pas exister ici :
+  // id_mere / id_pere => uniquement dans Lapin
 }
 
 enum StatutLapin {
@@ -29,51 +32,53 @@ enum StatutLapin {
 }
 
 model Lapin {
-  id             String      @id @default(cuid()) @db.VarChar(10)
+  id             String   @id @default(cuid()) @db.VarChar(25)
   nbre           String   @db.VarChar(15)
   race           String   @db.VarChar(15)
   sexe           String   @db.VarChar(15)
   date_naissance DateTime @db.Date
-  id_mere        Int?
-  id_pere        Int?
   statut         String   @db.VarChar(15)
   createdAt      DateTime @default(now())
 
-  reproductions  Repro[]
+  id_mere String? @db.VarChar(25)
+  id_pere String? @db.VarChar(25)
 
-  cage Cage @relation(fields: [cageId], references: [id])
+  // Pas besoin de faire des relations vers Lapin pour les parents sauf si nécessaire (ex: self-relation)
+
+  reproductions Repro[]
+
+  cage   Cage   @relation(fields: [cageId], references: [id])
   cageId String
 }
 
 model Repro {
-  id             String      @id @default(cuid()) @db.VarChar(10)
-  id_male        Int?
-  id_femelle     Int?
-  diagnostic String?
-  startnid DateTime @db.Date
+  id               String   @id @default(cuid()) @db.VarChar(25)
+  id_male          String?  @db.VarChar(25)
+  id_femelle       String?  @db.VarChar(25)
+  diagnostic       String?
+  startnid         DateTime @db.Date
   date_parturition DateTime @db.Date
-  lap_nes       String   @db.VarChar(15)
-  designation String?
-  lap_mort      String   @db.VarChar(15)
-  createdAt      DateTime @default(now())
-
-  lapins         Lapin[]
-}
-
-model Cage {
-  id  String    @id @default(cuid()) @db.VarChar(10)
-  nom String @db.VarChar(15)
+  lap_nes          String   @db.VarChar(15)
+  designation      String?
+  lap_mort         String   @db.VarChar(15)
+  createdAt        DateTime @default(now())
 
   lapins Lapin[]
 }
 
+model Cage {
+  id     String  @id @default(cuid()) @db.VarChar(25)
+  nom    String  @db.VarChar(15)
+  lapins Lapin[]
+}
+
 model Aliment {
-  id  String    @id @default(cuid()) @db.VarChar(10)
+  id  String @id @default(cuid()) @db.VarChar(25)
   nom String @db.VarChar(15)
 }
 
 model Vente {
-  id     String     @id @default(cuid()) @db.VarChar(10)
+  id     String  @id @default(cuid()) @db.VarChar(25)
   nomcli String?
   numcli String?
   price  String?
