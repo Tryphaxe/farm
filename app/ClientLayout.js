@@ -3,19 +3,7 @@
 import { useEffect } from "react";
 import NextTopLoader from "nextjs-toploader";
 
-export default function ClientLayout({children}) {
-
-    useEffect(() => {
-        const handleRefresh = () => {
-            NextTopLoader.start();
-        };
-        window.addEventListener('beforeunload', handleRefresh);
-
-        return () => {
-            window.removeEventListener('beforeunload', handleRefresh)
-        };
-    }, []);
-
+export default function ClientLayout({ children }) {
     return (
         <>
             <NextTopLoader

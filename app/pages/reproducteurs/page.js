@@ -3,13 +3,11 @@
 import { Select, Table, Badge, Button } from "flowbite-react";
 import { CircleFadingPlus, Rabbit, Search, RotateCw, Pencil, Trash, Venus, Mars, Upload, LucideRotate3D, Webhook } from "lucide-react";
 import { useEffect, useState } from "react";
-import { ToastContainer, Zoom } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
 import { format } from "date-fns";
 import { fr } from "date-fns/locale";
 import Exporting from "./exporting";
 import Create from "./create";
+import toast from "react-hot-toast";
 
 export default function ReproducteursPage() {
     const [loading, setLoading] = useState(true);
@@ -33,7 +31,7 @@ export default function ReproducteursPage() {
     };
 
     const handleSave = () => {
-        handleCloseModal()
+        handleCloseModal();
         fetchReproducteurs();
     };
 
@@ -49,28 +47,10 @@ export default function ReproducteursPage() {
         try {
             const response = await fetch(`/api/reproducteurs/${id}`, { method: "DELETE" });
             if (response.ok) {
-                toast.success("Reproducteur supprimé avec succès !", {
-                    style: {
-                        background: "#f1f1f1",
-                        color: "green",
-                        fontSize: "14px",
-                        fontFamily: "Afacad",
-                        hideProgressBar: true,
-                        borderRadius: "10px"
-                    },
-                });
+                toast.success("Reproducteur supprimé avec succès !")
                 fetchReproducteurs();
             } else {
-                toast.error("Suppression impossible !", {
-                    style: {
-                        background: "#f1f1f1",
-                        color: "red",
-                        fontSize: "14px",
-                        fontFamily: "Afacad",
-                        hideProgressBar: true,
-                        borderRadius: "10px"
-                    },
-                });
+                toast.error("Erreur lors de la suppression du reproducteur !")
             }
         } catch (error) {
             console.error("Erreur reseau :", error)
@@ -107,14 +87,14 @@ export default function ReproducteursPage() {
     return (
         <div className="w-full">
             {/* SECTION BANNER */}
-            <div className="flex flex-wrap items-center justify-between gap-3 px-3 py-2 w-full rounded-md bg-white">
+            <div className="border border-dashed flex flex-wrap items-center justify-between gap-3 px-3 py-2 w-full rounded-md bg-white">
                 {/* Title */}
                 <div className="flex items-center gap-x-3">
                     <Rabbit color="#562731" size={25} />
                     <div>
                         <span className="text-lg">Liste des reproducteurs - </span>
                         {loading ? (
-                            <span className="text-md text-gray-500"> Recherche en cours...</span>
+                            <span className="animate-pulse">######</span>
                         ) : (
                             <span className="text-md text-gray-500">{total} résultat(s) trouvé(s){search ? ` pour "${search}"` : ""}</span>
                         )}
@@ -300,20 +280,6 @@ export default function ReproducteursPage() {
 
             {/* SECTION MODAL EXPORT */}
             <Exporting open={openExport} setOpen={setOpenExport} />
-
-            {/* Notifications Toast */}
-            <ToastContainer
-                position="top-right"
-                autoClose={5000}
-                hideProgressBar={false}
-                newestOnTop
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover
-                transition={Zoom}
-            />
         </div>
     );
 }

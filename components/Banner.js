@@ -31,12 +31,10 @@ export default function Banner() {
                     <span className='text-green-600 ml-2 font-semibold'>15%</span>
                 </div>
             </div>
-            <div>
                 <Button color="light">
                     <Webhook className='mr-2' />
                     Actualiser
                 </Button>
-            </div>
         </div>
     )
 }

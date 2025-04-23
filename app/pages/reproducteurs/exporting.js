@@ -2,7 +2,7 @@ import React from 'react'
 import { Modal, ModalBody, ModalHeader, Button } from "flowbite-react";
 import { Upload } from "lucide-react";
 import { useState, useEffect } from "react";
-import { toast } from "react-toastify";
+import toast from 'react-hot-toast';
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import * as XLSX from "xlsx";
@@ -23,7 +23,7 @@ export default function Exporting({ open, setOpen }) {
       const data = await response.json();
       console.log("API Response:", data);
 
-      setReproducteurs(data.reproducteurs || []);
+      setReproducteurs(data.all || []);
     } catch (error) {
       console.error("Erreur :", error);
       setReproducteurs([]);
@@ -56,16 +56,7 @@ export default function Exporting({ open, setOpen }) {
     const date = new Date().toLocaleDateString();
     doc.save(`reproducteurs- ${date}.pdf`);
     setOpen(false);
-    toast.success("Fichier PDF exporté avec succès !", {
-      style: {
-        background: "#f1f1f1",
-        color: "#562731",
-        fontSize: "14px",
-        fontFamily: "Afacad",
-        hideProgressBar: true,
-        borderRadius: "10px"
-      },
-    });
+    toast.success("Fichier PDF exporté avec succès !");
   };
 
   const exportExcel = () => {
@@ -79,16 +70,7 @@ export default function Exporting({ open, setOpen }) {
     const date = new Date().toLocaleDateString();
     saveAs(data, `reproducteurs-${date}.xlsx`);
     setOpen(false);
-    toast.success("Fichier Excel exporté avec succès !", {
-      style: {
-        background: "#f1f1f1",
-        color: "#562731",
-        fontSize: "14px",
-        fontFamily: "Afacad",
-        hideProgressBar: true,
-        borderRadius: "10px"
-      },
-    });
+    toast.success("Fichier Excel exporté avec succès !");
   };
 
 

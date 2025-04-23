@@ -21,8 +21,8 @@ model Reproducteur {
   date_naissance DateTime @db.Date
   date_ajout     DateTime @default(now())
 
-  // Ces champs ne doivent pas exister ici :
-  // id_mere / id_pere => uniquement dans Lapin
+  reprosMale     Repro[] @relation("ReproMale")
+  reprosFemelle  Repro[] @relation("ReproFemelle")
 }
 
 enum StatutLapin {
@@ -43,8 +43,6 @@ model Lapin {
   id_mere String? @db.VarChar(25)
   id_pere String? @db.VarChar(25)
 
-  // Pas besoin de faire des relations vers Lapin pour les parents sauf si nécessaire (ex: self-relation)
-
   reproductions Repro[]
 
   cage   Cage   @relation(fields: [cageId], references: [id])
@@ -64,6 +62,10 @@ model Repro {
   createdAt        DateTime @default(now())
 
   lapins Lapin[]
+
+  // Relations vers Reproducteur
+  male             Reproducteur? @relation("ReproMale", fields: [id_male], references: [id])
+  femelle          Reproducteur? @relation("ReproFemelle", fields: [id_femelle], references: [id])
 }
 
 model Cage {

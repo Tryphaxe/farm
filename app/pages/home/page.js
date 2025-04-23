@@ -1,11 +1,12 @@
 "use client"
 
 import React, { useState, useEffect } from 'react'
-import { ChartNoAxesGantt, Dog, HandCoins, Rabbit, UsersRound, Wallet } from "lucide-react"
+import { ChartAreaIcon, ChartNoAxesGantt, Clock, Dog, HandCoins, Rabbit, UsersRound, Wallet } from "lucide-react"
 import { Progress, Badge, Tooltip } from 'flowbite-react'
-import LineChart from '@/components/LineChart'
+import ChartArea from '@/components/AreaChart'
 import Banner from '@/components/Banner'
 import Graphome from '@/components/Graphome'
+import { TableHome } from '@/components/TableHome'
 
 export default function page() {
   const [total, setTotal] = useState(0);
@@ -93,10 +94,18 @@ export default function page() {
       <Banner />
 
       {/* SECTION */}
-      <div className='grid grid-cols-2 gap-5'>
-        <div className='border-dashed border bg-white rounded-2xl p-3 h-80'>
-          <Badge icon={ChartNoAxesGantt} size='md' color='black'>Top products</Badge>
+      <div className='grid grid-cols-3 gap-5'>
+        <div className='shadow-sm border-dashed border bg-white rounded-2xl p-3 h-64'>
+          <Badge icon={ChartNoAxesGantt} size={16} color='black'>Top products</Badge>
           <Graphome />
+        </div>
+        <div className='shadow-sm border-dashed border bg-white rounded-2xl p-3 h-64'>
+          <Badge icon={ChartAreaIcon} size={16} color='black'>Top products</Badge>
+          <ChartArea />
+        </div>
+        <div className='overflow-auto custom-scrollbar shadow-sm border-dashed border bg-gray-50 rounded-2xl p-3 h-64'>
+        <Badge icon={Clock} size={16} color='black'>Derniers reproducteurs ajouter</Badge>
+        <TableHome />
         </div>
       </div>
 

@@ -2,9 +2,7 @@ import React from 'react'
 import { Modal, Button, Label, Spinner } from "flowbite-react";
 import { Rabbit } from "lucide-react";
 import { useState, useEffect } from "react";
-import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
-
+import toast from 'react-hot-toast';
 export default function Create({ open, close, onSave, reproducteur }) {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -55,30 +53,12 @@ export default function Create({ open, close, onSave, reproducteur }) {
             });
 
             if (response.ok) {
-                toast.success(reproducteur ? "Reproducteur modifié avec succès !" : "Reproducteur enregistré avec succès !", {
-                    style: {
-                        background: "#f1f1f1",
-                        color: "green",
-                        fontSize: "14px",
-                        fontFamily: "Afacad",
-                        hideProgressBar: true,
-                        borderRadius: "10px"
-                    },
-                });
+                toast.success(reproducteur ? "Reproducteur modifié avec succès !" : "Reproducteur enregistré avec succès !");
                 onSave();
                 close();
                 console.log("----------------SUCCESS-------------");
             } else {
-                toast.error(reproducteur ? "Modification échouée !" : "Enregistrement échoué !", {
-                    style: {
-                        background: "#f1f1f1",
-                        color: "red",
-                        fontSize: "14px",
-                        fontFamily: "Afacad",
-                        hideProgressBar: true,
-                        borderRadius: "10px"
-                    },
-                });
+                toast.error(reproducteur ? "Modification échouée !" : "Enregistrement échoué !");
                 console.log("----------------ERROR-------------")
             }
         } catch (error) {

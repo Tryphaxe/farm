@@ -1,56 +1,64 @@
 "use client";
 
-import { format, formatDistanceToNow } from "date-fns";
-import { fr } from "date-fns/locale";
-import { Badge, Table } from "flowbite-react";
+import { Mars, Venus } from "lucide-react";
 import { useState, useEffect } from "react";
+import toast from "react-hot-toast";
 
 export function TableHome() {
   const [reproducteurs, setReproducteurs] = useState([]);
-  // Formatage des dates
-  const formatDate = (dateString) => {
-    return format(new Date(dateString), "dd/MM/yyyy", { locale: fr });
+  const [isLoading, setIsLoading] = useState(true);
+
+  const lastReproducteurs = async () => {
+    try {
+      const res = await fetch("/api/reproducteurs/last");
+      if (!res.ok) { toast.error("Erreur de chargement des reproducteurs"); }
+
+      const data = await res.json();
+      setReproducteurs(data);
+    } catch (error) {
+      toast.error("Erreur de chargement :", error);
+    } finally {
+      setIsLoading(false); // 👈 Arrêter le chargement
+    }
   };
-
-  const allReproducteur = async () => {
-    const res = await fetch("/api/reproducteurs");
-    const data = await res.json();
-
-    // const lastReproducteurs = data.reproducteurs.sort((a,b) => new Date(b.created_At) - new Date(a.created_At)).slice(0, 5);
-    setReproducteurs(data.reproducteurs);
-  }
   useEffect(() => {
-    allReproducteur();
+    lastReproducteurs();
   }, [])
 
   return (
-    <div className="overflow-x-auto overflow-y-auto">
-      <Table striped>
-        <Table.Head className="sticky">
-          <Table.HeadCell>Nom</Table.HeadCell>
-          <Table.HeadCell>Race</Table.HeadCell>
-          <Table.HeadCell>Sexe</Table.HeadCell>
-          <Table.HeadCell>Date de naissance</Table.HeadCell>
-          <Table.HeadCell>Crée il y a</Table.HeadCell>
-        </Table.Head>
-        <Table.Body className="divide-y">
-          {reproducteurs.map((r) => (
-            <Table.Row key={r.id} className="bg-white dark:border-gray-700 dark:bg-gray-800">
-              <Table.Cell className="whitespace-nowrap font-medium text-gray-900 dark:text-white">
-                {r.nom}
-              </Table.Cell>
-              <Table.Cell>{ r.race }</Table.Cell>
-              <Table.Cell>
-                <Badge size="sm" color={r.sexe === "Mâle" ? "indigo" : "pink"} className="w-fit">
-                  {r.sexe}
-                </Badge>
-              </Table.Cell>
-              <Table.Cell>{formatDate(r.date_naissance)}</Table.Cell>
-              <Table.Cell>{formatDistanceToNow(r.date_ajout, { locale: fr })}</Table.Cell>
-            </Table.Row>
+    <div>
+      {isLoading ? (
+        <div className="space-y-3">
+          {[...Array(5)].map((_, i) => (
+            <div
+              key={i}
+              className="h-10 bg-gray-200 rounded animate-pulse w-full"
+            />
           ))}
-        </Table.Body>
-      </Table>
+        </div>
+      ) : (
+        <ul>
+          {reproducteurs.map((rep) => (
+            <li
+              key={rep.id}
+              className="px-4 py-2 mb-1 bg-white rounded-xl shadow-md flex items-center gap-2"
+            >
+              {rep.sexe === "Femelle" ? (
+                <Venus size={20} color="#fc515b" />
+              ) : (
+                <Mars size={20} color="#0c618b" />
+              )}
+              <div>
+                <strong>{rep.nom}</strong> - {rep.race} ({rep.sexe})
+                <br />
+                <span className="text-sm text-gray-500">
+                  Ajouté le {new Date(rep.date_ajout).toLocaleDateString()}
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   );
 }

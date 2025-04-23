@@ -14,7 +14,12 @@ export async function GET(request) {
         if (search) { filters.search = search }
         if (sexe) { filters.sexe = sexe }
 
-        const [total, reproducteurs] = await Promise.all([
+        const [all, total, reproducteurs, males, femelles] = await Promise.all([
+            prisma.reproducteur.findMany({
+                orderBy: {
+                    date_ajout: "desc",
+                }
+            }),
             prisma.reproducteur.count({
                 where: filters
             }),
@@ -25,10 +30,16 @@ export async function GET(request) {
                 orderBy: {
                     date_ajout: "desc",
                 }
-            })
+            }),
+            prisma.reproducteur.findMany({
+                where: { sexe: 'Mâle' },
+            }),
+            prisma.reproducteur.findMany({
+                where: { sexe: 'Femelle' },
+            }),
         ])
 
-        return NextResponse.json({ reproducteurs, total, totalPages: Math.ceil(total / pageSize), currentPage: page }, { status: 200 })
+        return NextResponse.json({ reproducteurs, total, males, femelles, totalPages: Math.ceil(total / pageSize), currentPage: page }, { status: 200 })
     } catch (error) {
         console.log("Erreur API : ", error);
         return NextResponse.json({ error: "All reproducteur failded" }, { status: 500 })

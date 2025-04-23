@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import Header from "./header";
 
 export default function AppLayout({ children }) {
@@ -7,6 +8,9 @@ export default function AppLayout({ children }) {
       <div className="py-5 px-16 bg-white">
         {children}
       </div>
+      <Toaster
+        position="bottom-right"
+      />
     </div>
   )
 }
