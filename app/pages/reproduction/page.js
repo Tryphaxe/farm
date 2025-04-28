@@ -132,14 +132,16 @@ export default function page() {
                     reproductions.map((reproduction) => (
                         <ReproDis
                             key={reproduction.id}
-                            idf={reproduction.id_femelle}
-                            idm={reproduction.id_male}
+                            id={reproduction.id}
+                            idf={reproduction.femelle.nom}
+                            idm={reproduction.male.nom}
+                            date_repro={reproduction.date_repro}
                             diagnostique={reproduction.diagnostic}
-                            createdAt={formatDate(reproduction.createdAt)}
-                            startnid={formatDate(reproduction.startnid)}
-                            date_parturition={formatDate(reproduction.date_parturition)}
-                            lap_mort={reproduction.lap_mort}
-                            lap_nes={reproduction.lap_nes}
+                            createdAt={reproduction.createdAt}
+                            startnid={reproduction.startnid ?? "Non défini"}
+                            date_parturition={reproduction.date_parturition ?? "Non défini"}
+                            lap_mort={reproduction.lap_mort ?? "0"}
+                            lap_nes={reproduction.lap_nes ?? "0"}
                         />
                     ))
                 ) : !loading ? (

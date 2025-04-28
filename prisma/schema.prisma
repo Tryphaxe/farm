@@ -53,12 +53,13 @@ model Repro {
   id               String   @id @default(cuid()) @db.VarChar(25)
   id_male          String?  @db.VarChar(25)
   id_femelle       String?  @db.VarChar(25)
+  date_repro      DateTime? @db.Date
   diagnostic       String?
-  startnid         DateTime @db.Date
-  date_parturition DateTime @db.Date
-  lap_nes          String   @db.VarChar(15)
+  startnid         DateTime? @db.Date
+  date_parturition DateTime? @db.Date
+  lap_nes          String?   @db.VarChar(15)
   designation      String?
-  lap_mort         String   @db.VarChar(15)
+  lap_mort         String?   @db.VarChar(15)
   createdAt        DateTime @default(now())
 
   lapins Lapin[]
